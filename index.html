@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detecting Silent Implementation Integrity Failures in AI-Generated Code</title>
+<meta name="description" content="A deterministic static analyzer that detects silent implementation integrity failures in AI-generated Python code.">
+<style>
+  :root{
+    --ink:#0D1626; --slate:#1B2B45; --pale:#E8EEF5; --muted:#8AA0BD;
+    --wire:#52B39A; --gold:#C9A227; --card:#121D30; --border:#22334F;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--ink); color:var(--pale);
+    font-family: Charter, "Bitstream Charter", Georgia, "Times New Roman", serif;
+    line-height:1.6;
+  }
+  .mono{ font-family: "DejaVu Sans Mono", "SF Mono", Menlo, Consolas, monospace; }
+  header{ padding: 56px 24px 40px; text-align:center; border-bottom:1px solid var(--border); }
+  header img.banner{ max-width:100%; width:640px; border-radius:12px; margin-bottom: 28px; }
+  h1{ font-size: 2.1rem; margin: 0 0 6px; letter-spacing:-0.01em; }
+  .authors{ color: var(--muted); font-size:1.02rem; margin-bottom: 4px; }
+  .status{
+    display:inline-block; margin-top:16px; padding:6px 14px; border-radius:20px;
+    background: rgba(201,162,39,0.12); border:1px solid rgba(201,162,39,0.4);
+    color: var(--gold); font-size:0.82rem; letter-spacing:0.02em;
+  }
+  main{ max-width: 760px; margin: 0 auto; padding: 40px 24px 80px; }
+  .stats{
+    display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
+    margin: 32px 0 40px;
+  }
+  .stat{
+    background: var(--card); border:1px solid var(--border); border-radius:10px;
+    padding: 14px 20px; text-align:center; min-width:120px;
+  }
+  .stat .num{ font-family:"DejaVu Sans Mono",monospace; font-size:1.3rem; color:var(--wire); font-weight:bold; }
+  .stat .lbl{ font-size:0.78rem; color:var(--muted); margin-top:4px; }
+  h2{ color:var(--pale); font-size:1.25rem; border-bottom:1px solid var(--border); padding-bottom:8px; margin-top:44px; }
+  p{ color:#CBD7E6; }
+  .abstract{ font-size:1.02rem; }
+  .cta{
+    display:flex; gap:14px; flex-wrap:wrap; margin: 28px 0 8px;
+  }
+  .btn{
+    display:inline-block; padding: 12px 22px; border-radius:8px; text-decoration:none;
+    font-size:0.95rem; font-weight:600; border:1px solid transparent; transition:opacity .15s;
+  }
+  .btn:hover{ opacity:0.88; }
+  .btn-primary{ background: var(--wire); color: var(--ink); }
+  .btn-secondary{ background: transparent; color: var(--pale); border-color: var(--border); }
+  .limits{ background: var(--card); border:1px solid var(--border); border-radius:10px; padding: 20px 22px; margin-top: 20px; }
+  .limits ul{ margin:8px 0 0; padding-left: 20px; color:#CBD7E6; }
+  .limits li{ margin-bottom:6px; }
+  footer{
+    text-align:center; color: var(--muted); font-size:0.85rem;
+    padding: 40px 24px; border-top:1px solid var(--border);
+  }
+  footer a{ color: var(--wire); }
+  code{ background: var(--card); padding:2px 6px; border-radius:4px; font-size:0.9em; }
+</style>
+</head>
+<body>
+
+<header>
+  <!-- If you uploaded aegisops_banner.png to this repo, this shows it. Otherwise it just won't render and the title below still works. -->
+  <img class="banner" src="banner.png" alt="AegisOps AI — Implementation Integrity Analyzer" onerror="this.style.display='none'">
+  <h1>Detecting Silent Implementation Integrity Failures<br>in AI-Generated Code</h1>
+  <div class="authors">Avnish Singh &nbsp;·&nbsp; Babu Banarasi Das University, Lucknow, India</div>
+  <span class="status">Preprint · arXiv submission pending</span>
+</header>
+
+<main>
+
+  <div class="stats">
+    <div class="stat"><div class="num">0.389</div><div class="lbl">MCC</div></div>
+    <div class="stat"><div class="num">0.833</div><div class="lbl">Recall</div></div>
+    <div class="stat"><div class="num">0.556</div><div class="lbl">Precision</div></div>
+    <div class="stat"><div class="num">15</div><div class="lbl">Scenarios</div></div>
+    <div class="stat"><div class="num">121</div><div class="lbl">Passing tests</div></div>
+  </div>
+
+  <div class="cta">
+    <a class="btn btn-primary" href="IIA_preprint.pdf">Download PDF</a>
+    <a class="btn btn-secondary" href="https://github.com/Avnish1505/aegisops-ai" target="_blank" rel="noopener">View Repository</a>
+  </div>
+
+  <h2>Abstract</h2>
+  <p class="abstract">
+    When an AI coding agent reports that it has finished wiring a safety check into an execution path,
+    the resulting code may parse, import, and pass its existing tests while the check itself never runs.
+    We call this a <em>silent implementation integrity failure</em>: the structure of the code is present,
+    the function that performs the work is not connected to anything, and no error is raised. This paper
+    describes the Implementation Integrity Analyzer (IIA), a deterministic static analyzer that looks for
+    three signatures of this failure in Python source — functions whose bodies contain only recognized
+    scaffold markers, stated intent that does not correspond to any identifier in the implementation, and
+    safety-critical functions that are defined but never invoked from the operations they are meant to
+    guard. We evaluate IIA on a labeled benchmark of fifteen constructed scenarios against a
+    string-presence baseline. IIA reaches MCC 0.389 (precision 0.556, recall 0.833); the baseline
+    degenerates to a single-class predictor and its precision and MCC are mathematically undefined. All
+    fifteen scenarios are accounted for: the analyzer classifies the ten straightforward cases correctly
+    and produces four false positives and one false negative on the five cases constructed to sit outside
+    its documented analysis boundary. We report these errors without adjustment.
+  </p>
+
+  <h2>What it catches</h2>
+  <p>Three structural signatures, checked directly from a Python AST — no model, no network call, no execution of the analyzed code:</p>
+  <div class="limits">
+    <ul>
+      <li><strong>Scaffolded functions</strong> — bodies that contain only <code>pass</code>, an ellipsis, a bare docstring, or <code>NotImplementedError</code>, despite a signature that promises real work.</li>
+      <li><strong>Intent–implementation mismatch</strong> — a commit message or task description whose stated capability has no corresponding identifier in the code.</li>
+      <li><strong>Unwired safety gates</strong> — a safety-critical function that is defined but never called from the operation it is meant to guard.</li>
+    </ul>
+  </div>
+
+  <h2>Status</h2>
+  <p>
+    This preprint is currently pending arXiv submission. This page will be updated with the arXiv link
+    once it is live. The implementation, benchmark corpus, ground-truth labels, and evaluation script are
+    available now at the repository linked above.
+  </p>
+
+</main>
+
+<footer>
+  Technical report by Avnish Singh &nbsp;·&nbsp; <a href="https://github.com/Avnish1505/aegisops-ai" target="_blank" rel="noopener">github.com/Avnish1505/aegisops-ai</a>
+</footer>
+
+</body>
+</html>
