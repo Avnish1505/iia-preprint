@@ -11,88 +11,100 @@
 <meta property="og:type" content="website">
 <style>
   :root{
-    --ink:#0D1626; --card:#121D30; --border:#22334F; --border-soft:#1A283F;
-    --pale:#E8EEF5; --body:#C2D0E0; --muted:#8195AF;
-    --wire:#52B39A; --gold:#C9A227;
-    --mono: "SF Mono", "DejaVu Sans Mono", Menlo, Consolas, monospace;
-    --serif: Charter, "Bitstream Charter", Georgia, "Times New Roman", serif;
+    --paper:#FAF9F5;        /* cream ground */
+    --paper-2:#F2F0E9;      /* subtle raised */
+    --rule:#E2DED2;         /* hairlines */
+    --rule-soft:#EBE8DF;
+    --text:#22211E;         /* warm near-black */
+    --body:#3D3B36;
+    --muted:#7A756B;
+    --accent:#2F7F6A;       /* brand teal, darkened for cream */
+    --gold:#8A6B1C;         /* darkened gold for callouts */
+    --mono:"SF Mono","DejaVu Sans Mono",Menlo,Consolas,monospace;
+    --serif:Charter,"Bitstream Charter",Georgia,"Times New Roman",serif;
   }
   *{ box-sizing:border-box; }
   html{ -webkit-text-size-adjust:100%; }
   body{
-    margin:0; background:var(--ink); color:var(--body);
-    font-family:var(--serif); line-height:1.65; font-size:17px;
+    margin:0; background:var(--paper); color:var(--body);
+    font-family:var(--serif); font-size:17.5px; line-height:1.68;
+    -webkit-font-smoothing:antialiased;
   }
-  a{ color:var(--wire); }
-  .wrap{ max-width:820px; margin:0 auto; padding:0 24px; }
+  a{ color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(47,127,106,.3); }
+  a:hover{ border-bottom-color:var(--accent); }
+  .wrap{ max-width:740px; margin:0 auto; padding:0 26px; }
 
-  /* ---------- header ---------- */
-  .masthead{ border-bottom:1px solid var(--border); padding:64px 0 40px; }
-  .name{ font-size:1.05rem; letter-spacing:.14em; text-transform:uppercase;
-         color:var(--muted); font-family:var(--mono); margin:0 0 18px; }
-  .tagline{ font-size:2.05rem; line-height:1.28; color:var(--pale); margin:0 0 18px; font-weight:600; letter-spacing:-.01em; }
-  .affil{ color:var(--muted); font-size:.98rem; margin:0; }
-  .affil a{ color:var(--muted); text-decoration:underline; text-underline-offset:3px; }
+  /* ---------- masthead ---------- */
+  .masthead{ padding:78px 0 42px; }
+  .name{ font-family:var(--mono); font-size:.78rem; letter-spacing:.18em;
+         text-transform:uppercase; color:var(--muted); margin:0 0 22px; }
+  h1{ font-size:1.95rem; line-height:1.34; color:var(--text); margin:0 0 20px;
+      font-weight:600; letter-spacing:-.012em; }
+  .affil{ color:var(--muted); font-size:.96rem; margin:0; }
+  .affil a{ color:var(--muted); border-bottom-color:var(--rule); }
+  .affil a:hover{ color:var(--accent); border-bottom-color:var(--accent); }
 
   /* ---------- project ---------- */
-  .project{ padding:52px 0; border-bottom:1px solid var(--border-soft); }
-  .eyebrow{ font-family:var(--mono); font-size:.76rem; letter-spacing:.12em;
-            text-transform:uppercase; color:var(--wire); margin:0 0 12px; }
-  .eyebrow .dot{ color:var(--border); margin:0 8px; }
+  .project{ padding:50px 0; border-top:1px solid var(--rule); }
+  .eyebrow{ font-family:var(--mono); font-size:.72rem; letter-spacing:.13em;
+            text-transform:uppercase; color:var(--accent); margin:0 0 14px; }
+  .eyebrow .sep{ color:var(--rule); margin:0 7px; }
   .eyebrow .pending{ color:var(--gold); }
-  h2{ font-size:1.6rem; line-height:1.32; color:var(--pale); margin:0 0 8px; font-weight:600; letter-spacing:-.005em; }
-  .sub{ color:var(--muted); font-size:1rem; margin:0 0 22px; font-style:italic; }
-  .project p{ margin:0 0 16px; }
+  h2{ font-size:1.42rem; line-height:1.36; color:var(--text); margin:0 0 7px;
+      font-weight:600; letter-spacing:-.006em; }
+  .sub{ color:var(--muted); font-size:.98rem; font-style:italic; margin:0 0 24px; }
+  .project p{ margin:0 0 17px; }
 
-  /* ---------- metrics ---------- */
-  .metrics{ display:flex; flex-wrap:wrap; gap:0; margin:24px 0 26px;
-            border:1px solid var(--border); border-radius:8px; overflow:hidden; background:var(--card); }
-  .metric{ flex:1 1 108px; padding:15px 12px; text-align:center; border-right:1px solid var(--border); }
-  .metric:last-child{ border-right:none; }
-  .metric .v{ font-family:var(--mono); font-size:1.15rem; color:var(--wire); font-weight:600; }
-  .metric .k{ font-size:.74rem; color:var(--muted); margin-top:5px; letter-spacing:.03em; }
+  /* ---------- metrics: hairline row, no boxes ---------- */
+  .metrics{ display:flex; flex-wrap:wrap; gap:0; margin:26px 0 28px;
+            border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); }
+  .metric{ flex:1 1 100px; padding:16px 10px; text-align:center; }
+  .metric + .metric{ border-left:1px solid var(--rule-soft); }
+  .metric .v{ font-family:var(--mono); font-size:1.02rem; color:var(--text); font-weight:600; }
+  .metric .k{ font-size:.72rem; color:var(--muted); margin-top:6px; letter-spacing:.04em; }
 
-  /* ---------- callout ---------- */
-  .finding{ border-left:3px solid var(--gold); background:rgba(201,162,39,.06);
-            padding:16px 20px; margin:22px 0; border-radius:0 6px 6px 0; }
-  .finding .lbl{ font-family:var(--mono); font-size:.72rem; letter-spacing:.1em;
-                 text-transform:uppercase; color:var(--gold); display:block; margin-bottom:7px; }
-  .finding p{ margin:0; color:var(--pale); }
+  /* ---------- finding callout ---------- */
+  .finding{ border-left:2px solid var(--gold); padding:4px 0 4px 20px; margin:24px 0; }
+  .finding .lbl{ font-family:var(--mono); font-size:.69rem; letter-spacing:.11em;
+                 text-transform:uppercase; color:var(--gold); display:block; margin-bottom:9px; }
+  .finding p{ margin:0; color:var(--text); }
 
-  /* ---------- lists ---------- */
-  ul.plain{ margin:16px 0; padding-left:20px; }
-  ul.plain li{ margin-bottom:9px; }
-  code{ font-family:var(--mono); font-size:.87em; background:var(--card);
-        padding:2px 6px; border-radius:4px; color:var(--pale); }
+  ul.plain{ margin:18px 0; padding-left:22px; }
+  ul.plain li{ margin-bottom:10px; }
+  ul.plain strong{ color:var(--text); }
+  code{ font-family:var(--mono); font-size:.85em; background:var(--paper-2);
+        padding:2px 6px; border-radius:3px; color:var(--text); }
 
-  /* ---------- links row ---------- */
-  .links{ display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
-  .lnk{ display:inline-block; padding:9px 17px; border-radius:6px; text-decoration:none;
-        font-family:var(--mono); font-size:.83rem; letter-spacing:.02em;
-        border:1px solid var(--border); color:var(--body); transition:border-color .15s, color .15s; }
-  .lnk:hover{ border-color:var(--wire); color:var(--wire); }
-  .lnk.primary{ background:var(--wire); color:var(--ink); border-color:var(--wire); font-weight:600; }
-  .lnk.primary:hover{ opacity:.88; color:var(--ink); }
+  /* ---------- links ---------- */
+  .links{ display:flex; flex-wrap:wrap; gap:9px; margin-top:28px; }
+  .lnk{ display:inline-block; padding:9px 18px; border-radius:5px; text-decoration:none;
+        font-family:var(--mono); font-size:.8rem; letter-spacing:.02em;
+        border:1px solid var(--rule); color:var(--body); background:transparent;
+        transition:border-color .15s,color .15s; }
+  .lnk:hover{ border-color:var(--accent); color:var(--accent); }
+  .lnk.primary{ background:var(--accent); color:var(--paper); border-color:var(--accent); font-weight:600; }
+  .lnk.primary:hover{ opacity:.87; color:var(--paper); }
 
-  /* ---------- bibtex ---------- */
-  details.cite{ margin-top:24px; }
-  details.cite summary{ cursor:pointer; font-family:var(--mono); font-size:.8rem;
-                        color:var(--muted); letter-spacing:.04em; }
-  details.cite summary:hover{ color:var(--wire); }
-  pre{ background:var(--card); border:1px solid var(--border); border-radius:6px;
-       padding:16px; overflow-x:auto; font-family:var(--mono); font-size:.78rem;
+  details.cite{ margin-top:26px; }
+  details.cite summary{ cursor:pointer; font-family:var(--mono); font-size:.78rem;
+                        color:var(--muted); letter-spacing:.05em; }
+  details.cite summary:hover{ color:var(--accent); }
+  pre{ background:var(--paper-2); border:1px solid var(--rule); border-radius:5px;
+       padding:16px; overflow-x:auto; font-family:var(--mono); font-size:.76rem;
        line-height:1.6; color:var(--body); margin:12px 0 0; }
 
-  footer{ padding:44px 0 60px; color:var(--muted); font-size:.88rem; }
+  footer{ padding:42px 0 68px; border-top:1px solid var(--rule);
+          color:var(--muted); font-size:.86rem; }
   footer p{ margin:0 0 6px; }
 
   @media (max-width:640px){
-    body{ font-size:16px; }
-    .tagline{ font-size:1.6rem; }
-    h2{ font-size:1.35rem; }
-    .masthead{ padding:44px 0 32px; }
+    body{ font-size:16.5px; }
+    h1{ font-size:1.55rem; }
+    h2{ font-size:1.24rem; }
+    .masthead{ padding:56px 0 34px; }
     .project{ padding:40px 0; }
-    .metric{ flex:1 1 50%; border-bottom:1px solid var(--border); }
+    .metric{ flex:1 1 50%; }
+    .metric:nth-child(odd){ border-left:none; }
   }
 </style>
 </head>
@@ -102,7 +114,7 @@
 
   <header class="masthead">
     <p class="name">Avnish Singh</p>
-    <h1 class="tagline">Benchmarks and deterministic detectors for<br>silent failures in AI-generated code.</h1>
+    <h1>Benchmarks and deterministic detectors for<br>silent failures in AI-generated code.</h1>
     <p class="affil">
       Babu Banarasi Das University, Lucknow, India &nbsp;·&nbsp;
       <a href="https://github.com/Avnish1505" target="_blank" rel="noopener">github.com/Avnish1505</a>
@@ -111,15 +123,15 @@
 
   <!-- ============ OMITBENCH ============ -->
   <section class="project">
-    <p class="eyebrow">Benchmark<span class="dot">/</span>Empirical study</p>
+    <p class="eyebrow">Benchmark<span class="sep">/</span>Empirical study</p>
     <h2>OmitBench</h2>
     <p class="sub">Measuring what AI coding agents quietly leave out of patches they report as complete.</p>
 
     <p>
       A benchmark and deterministic detector for silent omissions in AI coding agent patches, built on a
       310-instance corpus spanning eight Python libraries. Defects are introduced by hunk-deletion-free
-      mutation injection across three classes — <code>ABSENT</code>, <code>UNWIRED</code>, and
-      <code>STUB</code> — so that an omission is never visible as a missing diff hunk.
+      mutation injection across three classes, <code>ABSENT</code>, <code>UNWIRED</code> and
+      <code>STUB</code>, so that an omission is never visible as a missing diff hunk.
     </p>
 
     <div class="metrics">
@@ -130,25 +142,26 @@
     </div>
 
     <div class="finding">
-      <span class="lbl">Headline result — negative</span>
+      <span class="lbl">Headline result, negative</span>
       <p>
         The pre-registered deterministic detector (P1) lost to the LLM-judge baseline (B5), at a paired
-        MCC of −0.202 with a confidence interval excluding zero. The result is published as measured.
-        Detectors that failed to clear the pre-registered bar were retired rather than re-tuned.
+        MCC of &minus;0.202 with a confidence interval excluding zero. The result is published as
+        measured. Detectors that failed to clear the pre-registered bar were retired rather than
+        re-tuned.
       </p>
     </div>
 
     <p>
       A follow-up experiment isolated why. Requirement extraction, not detection, is the binding
-      bottleneck: literal-pipeline extraction scores MCC −0.935, meaning the pipeline cannot reliably
-      recover what a patch was supposed to contain before any detector is asked to judge it.
+      bottleneck: literal-pipeline extraction scores MCC &minus;0.935, meaning the pipeline cannot
+      reliably recover what a patch was supposed to contain before any detector is asked to judge it.
     </p>
 
     <p>
       Live agent trajectories were collected across tqdm, PyCQA/bandit, marshmallow and mkdocs. In that
-      real-world subset every agent succeeded, so only false-positive rate was measurable — reported
-      as a limitation rather than folded into the headline. The repository ships a CI gate enforcing a
-      precision floor of 0.80.
+      real-world subset every agent succeeded, so only false-positive rate was measurable, and it is
+      reported as a limitation rather than folded into the headline. The repository ships a CI gate
+      enforcing a precision floor of 0.80.
     </p>
 
     <div class="links">
@@ -159,7 +172,7 @@
 
   <!-- ============ IIA ============ -->
   <section class="project">
-    <p class="eyebrow">Preprint<span class="dot">/</span><span class="pending">arXiv submission pending</span></p>
+    <p class="eyebrow">Preprint<span class="sep">/</span><span class="pending">arXiv submission pending</span></p>
     <h2>Detecting Silent Implementation Integrity Failures in AI-Generated Code</h2>
     <p class="sub">A static analysis approach.</p>
 
@@ -172,9 +185,9 @@
     </p>
 
     <ul class="plain">
-      <li><strong>Scaffolded functions</strong> — bodies containing only recognized scaffold markers: <code>pass</code>, an ellipsis, a bare docstring, or <code>NotImplementedError</code>.</li>
-      <li><strong>Intent–implementation mismatch</strong> — a stated capability with no corresponding identifier anywhere in the file.</li>
-      <li><strong>Unwired safety gates</strong> — a safety-critical function defined but never called from the operation it guards.</li>
+      <li><strong>Scaffolded functions</strong>, bodies containing only recognized scaffold markers: <code>pass</code>, an ellipsis, a bare docstring, or <code>NotImplementedError</code>.</li>
+      <li><strong>Intent&ndash;implementation mismatch</strong>, a stated capability with no corresponding identifier anywhere in the file.</li>
+      <li><strong>Unwired safety gates</strong>, a safety-critical function defined but never called from the operation it guards.</li>
     </ul>
 
     <div class="metrics">
@@ -192,7 +205,7 @@
         negative fall entirely in a hard group written to sit outside the analyzer's documented
         boundary, and each maps to a limitation recorded before the benchmark was run. The false
         negative is the informative one: the gate is called, but inside a branch that does not execute
-        first — presence in a call set is not the same as running before the guarded action.
+        first. Presence in a call set is not the same as running before the guarded action.
       </p>
     </div>
 
